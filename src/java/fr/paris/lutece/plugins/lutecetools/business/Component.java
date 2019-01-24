@@ -35,10 +35,11 @@ package fr.paris.lutece.plugins.lutecetools.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.paris.lutece.plugins.lutecetools.business.AbstractComponent;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Component
@@ -53,7 +54,7 @@ public class Component extends AbstractComponent implements Comparable
     public static final String SNAPSHOT_CORE_VERSION = "snapshotCoreVersion";
     public static final String SNAPSHOT_PARENT_POM_VERSION = "snapshotParentPomVersion";
     public static final String JIRA_KEY = "jiraKey";
-    public static final String SCM_URL = "scmUrl";
+
     public static final String SCM_CONNECTION = "scmConnection";
     public static final String SCM_DEVELOPER_CONNECTION = "scmDeveloperConnection";
     public static final String SNAPSHOT_SCM_URL = "snapshotScmUrl";
@@ -63,6 +64,10 @@ public class Component extends AbstractComponent implements Comparable
     private String _strCategory;
     private String _strDescription;
     private Map<String, Object> _mapAttributes = new HashMap<>( );
+
+
+    @JsonProperty( "scm_url" )
+    private String _strScmUrl;
 
     /**
      * @return the LastUpdate
@@ -112,7 +117,7 @@ public class Component extends AbstractComponent implements Comparable
     {
         StringBuilder sbTrace = new StringBuilder( );
         sbTrace.append( "Component : " ).append( getArtifactId( ) ).append( "\n  [release] Version: " ).append( getVersion( ) )
-                .append( "\n  [release] Core version: " ).append( get( CORE_VERSION ) ).append( "\n  [release] SCM URL: " ).append( get( SCM_URL ) )
+                .append( "\n  [release] Core version: " ).append( get( CORE_VERSION ) ).append( "\n  [release] SCM URL: " ).append( get( _strScmUrl ) )
                 .append( "\n  [release] Parent POM Version: " ).append( get( PARENT_POM_VERSION ) ).append( "\n  [snapshot] Core version: " )
                 .append( get( SNAPSHOT_CORE_VERSION ) ).append( "\n  [snapshot] SCM URL: " ).append( get( SNAPSHOT_SCM_URL ) )
                 .append( "\n  [snapshot] Parent POM Version: " ).append( get( SNAPSHOT_PARENT_POM_VERSION ) );
@@ -255,4 +260,21 @@ public class Component extends AbstractComponent implements Comparable
         return _mapAttributes;
     }
 
+    /**
+     * /** get _strScmUrl
+     *
+     * @return the value
+     */
+    public String getStrScmUrl() {
+        return _strScmUrl;
+    }
+
+    /**
+     * /** Set _strScmUrl
+     *
+     * @param _strScmUrl
+     */
+    public void setStrScmUrl(String _strScmUrl) {
+        this._strScmUrl = _strScmUrl;
+    }
 }
